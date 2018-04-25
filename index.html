@@ -1,0 +1,120 @@
+<!DOCTYLE html>
+<html>
+    <head>
+        <title>Rando Route</title>
+        <style>
+            body {
+                background-color: #444;
+                color: #CCC;
+                font-family: Courier New, Courier, monospace;
+                text-align: center;
+            }
+
+            .picker {
+                display: inline-block;
+                margin: 0;
+                width: 30%;
+            }
+            .picker img {
+                width: 100%;
+            }
+
+            .transition {
+                transition: transform 3s;
+                transition-timing-function: ease-in-out;
+            }
+            .no-transition {
+                transition: none !important;
+                transition-timing-function: none;
+            }
+
+            div {
+                padding: auto 0;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Get Rando!</h1>
+        <div>
+            <div class="left-picker picker">
+                <p>Left or straight...?</p>
+                <img id="left-arrow" class="no-transition" src="arrow.png">
+            </div>
+            <div class="center-picker picker">
+                <p>Left, right, or straight...?</p>
+                <img id="center-arrow" class="no-transition" src="arrow.png">
+            </div>
+            <div class="right-picker picker">
+                <p>Right or straight...?</p>
+                <img id="right-arrow" class="no-transition" src="arrow.png">
+            </div>
+        </div>
+        <script>
+            document.getElementById("left-arrow").addEventListener('click', function(event) {
+                console.log("left arrow click");
+                imageTransitions(event.target, rotLeft);
+            }, false);
+            document.getElementById("center-arrow").addEventListener('click', function(event) {
+                console.log("center arrow click");
+                imageTransitions(event.target, rotCenter);
+            }, false);
+            document.getElementById("right-arrow").addEventListener('click', function(event) {
+                console.log("right arrow click");
+                imageTransitions(event.target, rotRight);
+            }, false);
+
+            function imageTransitions(target, callback) {
+                console.log("resetting image rotation and transition status")
+                target.className = "no-transition";
+                target.style.transform = "rotate(0deg)";
+                setTimeout(function() {
+                    target.className = "transition";
+                    callback(target);
+                }, 0);
+            }
+
+            function rotLeft(target) {
+                var final;
+                var result = Math.floor(Math.random() * 2);
+                switch(result) {
+                    case 0:
+                        final = 270;
+                        break;
+                    case 1:
+                        final = 360;
+                        break;
+                }
+                target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+            }
+            function rotCenter(target) {
+                var final;
+                var result = Math.floor(Math.random() * 3);
+                switch(result) {
+                    case 0:
+                        final = 270;
+                        break;
+                    case 1:
+                        final = 360;
+                        break;
+                    case 2:
+                        final = 90;
+                        break;
+                }
+                target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+            }
+            function rotRight(target) {
+                var final;
+                var result = Math.floor(Math.random() * 2);
+                switch(result) {
+                    case 0:
+                        final = 90;
+                        break;
+                    case 1:
+                        final = 360;
+                        break;
+                }
+                target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+            }
+        </script>
+    </body>
+</html>
