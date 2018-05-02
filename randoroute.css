@@ -8,12 +8,22 @@ body {
 
 .picker {
 	display: inline-block;
+	height: 30vh;
 	margin: 0;
-	width: 22%;
+	width: 30vh;
 }
-.picker img {
+#left-straight, #left-straight-right, #left-right, #straight-right {
+	height: 28vh;
 	margin: 15% auto;
-	width: 75%;
+	height: 28vh;
+}
+
+.overlay {
+	bottom: 24vh;
+	height: 8vh;
+	pointer-events: none;
+	position: relative;
+	width: 8vh;
 }
 
 .timer {
