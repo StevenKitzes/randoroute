@@ -117,7 +117,7 @@ function alertTimeUp() {
 	}
 	if(vibration) {
 		console.log('doing vibration');
-		window.navigator.vibrate([.5, .5, .1, .1, .1, .1, .1, .1, .1]);
+		window.navigator.vibrate([500, 500, 100, 100, 100, 100, 100, 100, 100]);
 	}
 }
 
