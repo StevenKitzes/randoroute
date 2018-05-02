@@ -2,28 +2,29 @@ body {
 	background-color: #444;
 	color: #CCC;
 	font-family: Courier New, Courier, monospace;
+	margin: 0;
 	text-align: center;
 	transition: background-color 2s;
 }
 
 .picker {
 	display: inline-block;
-	height: 30vh;
+	height: 22vw;
 	margin: 0;
-	width: 30vh;
+	width: 22vw;
 }
 #left-straight, #left-straight-right, #left-right, #straight-right {
-	height: 28vh;
+	height: 20vw;
 	margin: 15% auto;
-	height: 28vh;
+	height: 20vw;
 }
 
 .overlay {
-	bottom: 24vh;
-	height: 8vh;
+	bottom: 17vw;
+	height: 6vw;
 	pointer-events: none;
 	position: relative;
-	width: 8vh;
+	width: 6vw;
 }
 
 .timer {
