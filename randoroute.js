@@ -65,6 +65,15 @@ document.getElementById("autospin-button").addEventListener('click', function(ev
 	toggleAutospin();
 }, false);
 
+// this is to make something visible because firefox on android is being dumb
+document.getElementById("firefox-fix-trigger").addEventListener('click', function(event) {
+	console.log("showing a big fat div to extend doc size for firefox addr bar hiding");
+	var target = document.getElementById("stupid-bottom-div-for-firefox");
+	console.log('starting display: ' + target.style.display);
+	target.style.display = "block";
+	console.log('ending display: ' + target.style.display);
+}, false);
+
 loop();
 resetTimer();
 autospinLoop();

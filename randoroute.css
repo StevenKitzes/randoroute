@@ -7,6 +7,10 @@ body {
 	transition: background-color 2s;
 }
 
+h1 {
+	margin-top: 2rem;
+}
+
 .picker {
 	display: inline-block;
 	height: 22vw;
@@ -82,4 +86,9 @@ body {
 
 div {
 	padding: 0;
+}
+
+#stupid-bottom-div-for-firefox {
+	display: none;
+	height: 200vh;
 }
