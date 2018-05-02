@@ -1,9 +1,9 @@
 // timer properties
 var expired = false;
-var delay = 3000; // initial set to 1 minute
+var delay = 60000; // initial set to 1 minute
 var timerHandle;
-var sound = true;
-var vibration = true;
+var sound = false;
+var vibration = false;
 
 // arrow click listeners
 document.getElementById("left-straight").addEventListener('click', function(event) {
@@ -117,7 +117,12 @@ function alertTimeUp() {
 	}
 	if(vibration) {
 		console.log('doing vibration');
-		window.navigator.vibrate([500, 500, 100, 100, 100, 100, 100, 100, 100]);
+		if(window.navigator.vibrate([500, 500, 100, 100, 100, 100, 100, 100, 100])) {
+			console.log('successful vibrate!');
+		}
+		else {
+			console.log('failed to vibrate');
+		}
 	}
 }
 
@@ -179,7 +184,7 @@ function rotStraightRight(target) {
 
 function toggleSound() {
 	sound = !sound;
-	console.log('sound ' + sound ? 'on' : 'off');
+	console.log('sound ' + (sound ? 'on' : 'off'));
 	
 	var button = document.getElementById('sound-button');
 	if(button.classList.contains('active')) {
@@ -193,7 +198,7 @@ function toggleSound() {
 }
 function toggleVibration() {
 	vibration = !vibration;
-	console.log('vibration ' + vibration ? 'on' : 'off');
+	console.log('vibration ' + (vibration ? 'on' : 'off'));
 	
 	var button = document.getElementById('vibration-button');
 	if(button.classList.contains('active')) {
