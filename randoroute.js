@@ -1,42 +1,53 @@
 // timer properties
 var expired = false;
 var delay = 60000; // initial set to 1 minute
+var spinDurationShort = 1;
+var spinDurationLong = 4;
 var timerHandle;
 var sound = false;
 var vibration = false;
+var autospin = false;
 
 // arrow click listeners
 document.getElementById("left-straight").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("left-straight arrow click");
 	imageTransitions(event.target, rotLeftStraight);
 }, false);
 document.getElementById("left-straight-right").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("left-straight-right arrow click");
 	imageTransitions(event.target, rotLeftStraightRight);
 }, false);
 document.getElementById("left-right").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("left-right arrow click");
 	imageTransitions(event.target, rotLeftRight);
 }, false);
 document.getElementById("straight-right").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("straight-right arrow click");
 	imageTransitions(event.target, rotStraightRight);
 }, false);
 
 // timer click listeners
 document.getElementById("timer-.5").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("timer .5 click");
 	setDelay(30);
 }, false);
 document.getElementById("timer-1").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("timer 1 click");
 	setDelay(60);
 }, false);
 document.getElementById("timer-2").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("timer 2 click");
 	setDelay(120);
 }, false);
 document.getElementById("timer-3").addEventListener('click', function(event) {
+	autospinOff();
 	console.log("timer 3 click");
 	setDelay(180);
 }, false);
@@ -49,14 +60,20 @@ document.getElementById("vibration-button").addEventListener('click', function(e
 	console.log("vibration button click");
 	toggleVibration();
 }, false);
+document.getElementById("autospin-button").addEventListener('click', function(event) {
+	console.log("autospin button click");
+	toggleAutospin();
+}, false);
 
 loop();
 resetTimer();
+autospinLoop();
 
 // handlers
 function imageTransitions(target, callback) {
 	console.log("resetting image rotation and transition status")
 	target.className = "no-transition";
+	target.style.transition = "transform " + (autospin ? spinDurationShort : spinDurationLong) + "s";
 	target.style.transform = "rotate(0deg)";
 	setTimeout(function() {
 		target.className = "transition";
@@ -86,7 +103,7 @@ function resetTimer() {
 		expired = true;
 		alertTimeUp();
 	}, delay);
-	console.log('timerHandle: ' + timerHandle);
+	console.log('reset timer new delay: ' + delay);
 }
 
 function loop() {
@@ -108,6 +125,21 @@ function loop() {
 	setTimeout(loop, 1000);
 }
 
+function autospinLoop() {
+	console.log('autospin loop looping . . .');
+	setTimeout(autospinLoop, 10000);
+	if(autospin) {
+		console.log('autospinningggggg');
+		clearTimeout(timerHandle);
+		document.querySelector('body').style.backgroundColor = "#444";
+		expired = false;
+		imageTransitions(document.getElementById('left-straight'), rotLeftStraight);
+		imageTransitions(document.getElementById('left-straight-right'), rotLeftStraightRight);
+		imageTransitions(document.getElementById('left-right'), rotLeftRight);
+		imageTransitions(document.getElementById('straight-right'), rotStraightRight);
+	}
+}
+
 function alertTimeUp() {
 	if(sound) {
 		console.log('doing sound');
@@ -127,59 +159,59 @@ function alertTimeUp() {
 }
 
 function rotLeftStraight(target) {
-	var final;
+	var finalAngle;
 	var result = Math.floor(Math.random() * 2);
 	switch(result) {
 		case 0:
-			final = 270;
+			finalAngle = 270;
 			break;
 		case 1:
-			final = 360;
+			finalAngle = 360;
 			break;
 	}
-	target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+	target.style.transform = "rotate(" + ((360 * 4) + finalAngle) + "deg)";
 }
 function rotLeftStraightRight(target) {
-	var final;
+	var finalAngle;
 	var result = Math.floor(Math.random() * 3);
 	switch(result) {
 		case 0:
-			final = 270;
+			finalAngle = 270;
 			break;
 		case 1:
-			final = 360;
+			finalAngle = 360;
 			break;
 		case 2:
-			final = 90;
+			finalAngle = 90;
 			break;
 	}
-	target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+	target.style.transform = "rotate(" + ((360 * 4) + finalAngle) + "deg)";
 }
 function rotLeftRight(target) {
-	var final;
+	var finalAngle;
 	var result = Math.floor(Math.random() * 2);
 	switch(result) {
 		case 0:
-			final = 270;
+			finalAngle = 270;
 			break;
 		case 1:
-			final = 90;
+			finalAngle = 90;
 			break;
 	}
-	target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+	target.style.transform = "rotate(" + ((360 * 4) + finalAngle) + "deg)";
 }
 function rotStraightRight(target) {
-	var final;
+	var finalAngle;
 	var result = Math.floor(Math.random() * 2);
 	switch(result) {
 		case 0:
-			final = 90;
+			finalAngle = 90;
 			break;
 		case 1:
-			final = 360;
+			finalAngle = 360;
 			break;
 	}
-	target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
+	target.style.transform = "rotate(" + ((360 * 4) + finalAngle) + "deg)";
 }
 
 function toggleSound() {
@@ -208,5 +240,30 @@ function toggleVibration() {
 	else {
 		button.classList.remove('inactive');
 		button.classList.add('active');
+	}
+}
+function toggleAutospin() {
+	autospin = !autospin;
+	console.log('autospin ' + (autospin ? 'on' : 'off'));
+	
+	var button = document.getElementById('autospin-button');
+	if(button.classList.contains('active')) {
+		button.classList.remove('active');
+		button.classList.add('inactive');
+	}
+	else {
+		button.classList.remove('inactive');
+		button.classList.add('active');
+	}
+}
+
+function autospinOff() {
+	console.log('autospin off triggered by a manual spin or timer selection');
+	
+	var button = document.getElementById('autospin-button');
+	if(button.classList.contains('active')) {
+		autospin = !autospin;
+		button.classList.remove('active');
+		button.classList.add('inactive');
 	}
 }

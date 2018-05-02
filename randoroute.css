@@ -42,7 +42,6 @@ body {
 }
 
 .transition {
-	transition: transform 3s;
 	transition-timing-function: ease-in-out;
 }
 .no-transition {
