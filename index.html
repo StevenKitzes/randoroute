@@ -3,77 +3,28 @@
     <head>
         <title>Rando Route</title>
         <meta charset="utf-8">
-        <style>
-            body {
-                background-color: #444;
-                color: #CCC;
-                font-family: Courier New, Courier, monospace;
-                text-align: center;
-                transition: background-color 2s;
-            }
-
-            .picker {
-                display: inline-block;
-                margin: 0;
-                width: 30%;
-            }
-            .picker img {
-                margin: 15% auto;
-                width: 75%;
-            }
-
-            .timer {
-                display: inline-block;
-                margin: 0 5%;
-                width: 20%;
-            }
-            .timer div {
-                background-color: black;
-                border-radius: 10%;
-                font-size: 16vw;
-                font-weight: bolder;
-            }
-
-            .transition {
-                transition: transform 3s;
-                transition-timing-function: ease-in-out;
-            }
-            .no-transition {
-                transition: none !important;
-            }
-
-            .gray {
-                background-color: #444;
-            }
-            .pulse-red {
-                background-color: #F00;
-            }
-            .pulse-dark-red {
-                background-color: #500;
-            }
-
-            div {
-                padding: 0;
-            }
-        </style>
+		<link rel="stylesheet" type="text/css" href="randoroute.css">
     </head>
     <body>
         <h1>Get Rando!</h1>
         <div id="arrows">
             <div class="left-picker picker">
-                <p>Left or straight...?</p>
-                <img id="left-arrow" class="no-transition" src="arrow.png">
+                <img id="left-straight" class="no-transition" src="left-straight.png">
             </div>
             <div class="center-picker picker">
-                <p>Left, right, or straight...?</p>
-                <img id="center-arrow" class="no-transition" src="arrow.png">
+                <img id="left-straight-right" class="no-transition" src="left-straight-right.png">
             </div>
             <div class="right-picker picker">
-                <p>Right or straight...?</p>
-                <img id="right-arrow" class="no-transition" src="arrow.png">
+                <img id="left-right" class="no-transition" src="left-right.png">
+            </div>
+            <div class="right-picker picker">
+                <img id="straight-right" class="no-transition" src="straight-right.png">
             </div>
         </div>
         <div id="timers">
+            <div id="timer-.5" class="timer">
+                <div>.5</div>
+            </div>
             <div id="timer-1" class="timer">
                 <div>1</div>
             </div>
@@ -84,138 +35,11 @@
                 <div>3</div>
             </div>
         </div>
-        <script>
-            // timer properties
-            var expired = false;
-            var delay = 60000; // initial set to 1 minute
-            var timerHandle;
-
-            // arrow click listeners
-            document.getElementById("left-arrow").addEventListener('click', function(event) {
-                console.log("left arrow click");
-                imageTransitions(event.target, rotLeft);
-            }, false);
-            document.getElementById("center-arrow").addEventListener('click', function(event) {
-                console.log("center arrow click");
-                imageTransitions(event.target, rotCenter);
-            }, false);
-            document.getElementById("right-arrow").addEventListener('click', function(event) {
-                console.log("right arrow click");
-                imageTransitions(event.target, rotRight);
-            }, false);
-
-            // timer click listeners
-            document.getElementById("timer-1").addEventListener('click', function(event) {
-                console.log("timer 1 click");
-                setDelay(60);
-            }, false);
-            document.getElementById("timer-2").addEventListener('click', function(event) {
-                console.log("timer 2 click");
-                setDelay(120);
-            }, false);
-            document.getElementById("timer-3").addEventListener('click', function(event) {
-                console.log("timer 3 click");
-                setDelay(180);
-            }, false);
-
-            loop();
-
-            // handlers
-            function imageTransitions(target, callback) {
-                console.log("resetting image rotation and transition status")
-                target.className = "no-transition";
-                target.style.transform = "rotate(0deg)";
-                setTimeout(function() {
-                    target.className = "transition";
-                    resetTimer();
-                    callback(target);
-                }, 100);
-            }
-            // newDelay is in seconds
-            function setDelay(newDelay) {
-                // set the delay value
-                delay = newDelay * 1000;
-                console.log('new delay: ' + delay);
-
-                // reset the timer itself
-                resetTimer();
-            }
-
-            function resetTimer() {
-                clearTimeout(timerHandle);
-                // reset the background color
-                document.querySelector('body').style.backgroundColor = "#444";
-                expired = false;
-
-                // reset timer
-                timerHandle = setTimeout(function() {
-                    // when timer expires
-                    expired = true;
-                }, delay);
-                console.log('timerHandle: ' + timerHandle);
-            }
-
-            function loop() {
-                console.log('loop looping . . .');
-                if(expired) {
-                    var body = document.querySelector('body')
-                    if(body.className == "pulse-red") {
-                        body.style.backgroundColor = "";
-                        body.className = "pulse-dark-red";
-                    }
-                    else {
-                        body.style.backgroundColor = "";
-                        body.className = "pulse-red";
-                    }
-                }
-                else {
-                  console.log('not expired');
-                }
-                setTimeout(loop, 1000);
-            }
-
-            function rotLeft(target) {
-                var final;
-                var result = Math.floor(Math.random() * 2);
-                switch(result) {
-                    case 0:
-                        final = 270;
-                        break;
-                    case 1:
-                        final = 360;
-                        break;
-                }
-                target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
-            }
-            function rotCenter(target) {
-                var final;
-                var result = Math.floor(Math.random() * 3);
-                switch(result) {
-                    case 0:
-                        final = 270;
-                        break;
-                    case 1:
-                        final = 360;
-                        break;
-                    case 2:
-                        final = 90;
-                        break;
-                }
-                target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
-            }
-            function rotRight(target) {
-                var final;
-                var result = Math.floor(Math.random() * 2);
-                switch(result) {
-                    case 0:
-                        final = 90;
-                        break;
-                    case 1:
-                        final = 360;
-                        break;
-                }
-                target.style.transform = "rotate(" + ((360 * 4) + final) + "deg)";
-            }
-        </script>
+		<div id="config">
+			<div id="sound-button" class="config-button active">Sound</div>
+			<div id="vibration-button" class="config-button active">Vibration</div>
+		</div>
+        <script type="text/javascript" src="randoroute.js">
+		</script>
     </body>
 </html>

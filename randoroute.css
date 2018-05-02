@@ -1,0 +1,75 @@
+body {
+	background-color: #444;
+	color: #CCC;
+	font-family: Courier New, Courier, monospace;
+	text-align: center;
+	transition: background-color 2s;
+}
+
+.picker {
+	display: inline-block;
+	margin: 0;
+	width: 22%;
+}
+.picker img {
+	margin: 15% auto;
+	width: 75%;
+}
+
+.timer {
+	display: inline-block;
+	margin: 0 2rem;
+	width: 15%;
+}
+.timer div {
+	background-color: black;
+	border-radius: 10%;
+	font-size: 10vw;
+	font-weight: bolder;
+}
+
+#config {
+	margin-top: 4vw;
+}
+.config-button {
+	border: solid 1vw;
+	border-radius: 1.5vw;
+	display: inline-block;
+	font-size: 3vw;
+	font-weight: bolder;
+	margin: 0 5vw;
+	padding: 1.5vw;
+}
+
+.transition {
+	transition: transform 3s;
+	transition-timing-function: ease-in-out;
+}
+.no-transition {
+	transition: none !important;
+}
+
+.active {
+	background-color: lightgreen;
+	border-color: darkgreen;
+	color: darkgreen;
+}
+.inactive {
+	background-color: lightgray;
+	border-color: darkgray;
+	color: darkgray;
+}
+
+.gray {
+	background-color: #444;
+}
+.pulse-red {
+	background-color: #F00;
+}
+.pulse-dark-red {
+	background-color: #500;
+}
+
+div {
+	padding: 0;
+}
